@@ -21,7 +21,7 @@ from tweepy import API
 
 import pandas as pd
 import numpy as np
-#import json
+import json
 
 auth = OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
@@ -30,15 +30,11 @@ api = API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
 query = 'bank'
 geo = '53.2757867,-7.563768,250km'
-cnt = 500
+cnt = 250
 
 tweets = [tweet for tweet in Cursor(api.search, q = query, geocode = geo).items(cnt)]
 
-tweetList = []
-for tweet in tweets:
-    tweetList.append(tweet._json)
+#tweetList = []
+#for tweet in tweets:
+#    tweetList.append(tweet._json)
     
-df = pd.DataFrame(data=tweet.created_at)
-
-for part in tweetList[0]:
-    print(part)
