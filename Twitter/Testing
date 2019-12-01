@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Nov 23 23:09:03 2019
+
+@author: patrickbarry
+"""
+tweetList[400]['entities']
+#for part in tweetList[0]:
+#    print(part)
+    
+for i, dict in enumerate(tweetList, start=0):
+    print("{}: {}".format(i, dict['textqqqqqqqqqqqqqqqqqqqqqqqqqqqq']))
+#    print("{}: {}".format(i, dict['geo']))
+#    print("{}: {}".format(i, dict['text']))
+#    print("{}: {}".format(i, dict['user']['profile_banner_url']))
+#    print(dict['entities'])
+#    print("{}: {}".format(i, dict['entities']['urls']))
