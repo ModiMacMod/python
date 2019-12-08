@@ -6,8 +6,8 @@ Created on Sat Nov 23 23:25:05 2019
 @author: patrickbarry
 """
 
-for part in tweetList[0]:
-    print(part)
+#for part in tweetList[0]:
+#    print(part)
 
 
 

@@ -84,11 +84,11 @@ Created on Sun Dec  1 17:39:17 2019
 #print(tweetList[0]['user']['translator_type'])
 
 
-hashTags = hashTags.append({'text': tweetList[1]['entities']['hashtags'][0]['text'], \
-                            'indices_start': tweetList[1]['entities']['hashtags'][0]['indices'][0], \
-                            'indices_end': tweetList[1]['entities']['hashtags'][0]['indices'][1]} , ignore_index=True)
-
-tweet.lang for tweet in tweets
-
-for tweet in tweets:
-    tweet.entities['hashtags']
+#hashTags = hashTags.append({'text': tweetList[1]['entities']['hashtags'][0]['text'], \
+#                            'indices_start': tweetList[1]['entities']['hashtags'][0]['indices'][0], \
+#                            'indices_end': tweetList[1]['entities']['hashtags'][0]['indices'][1]} , ignore_index=True)
+#
+#tweet.lang for tweet in tweets
+#
+#for tweet in tweets:
+#    tweet.entities['hashtags']
