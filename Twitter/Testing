@@ -3,7 +3,7 @@
 """
 Created on Sat Nov 23 23:09:03 2019
 
-@author: patrickbarry
+@author: ModiMacMod
 """
 tweetList[400]['entities']
 #for part in tweetList[0]:

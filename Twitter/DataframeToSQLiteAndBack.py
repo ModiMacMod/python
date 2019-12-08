@@ -3,7 +3,7 @@
 """
 Created on Sun Dec  1 18:40:24 2019
 
-@author: patrickbarry
+@author: ModiMacMod
 """
 from datetime import datetime
 import sqlite3

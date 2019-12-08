@@ -3,7 +3,7 @@
 """
 Created on Thu Nov 21 20:31:07 2019
 
-@author: patrickbarry
+@author: ModiMacMod
 """
 
 ACCESS_TOKEN = "4462851699-taUPFix8LRPr24OuAZFr4CDaIuK7MORkViLxMyJ"
@@ -15,26 +15,24 @@ print(ACCESS_TOKEN_SECRET)
 print(CONSUMER_KEY)
 print(CONSUMER_SECRET)
 
+
+#Import tweepy classes
+#    some smart python coders have created tweepy to make life better for all of us :)
+#    you will likely need to install tweepy using pip
 from tweepy import OAuthHandler
 from tweepy import Cursor
 from tweepy import API
 
-import pandas as pd
-import numpy as np
-import json
-
+#Log into twitter API, so that twitter can monitor what data you are extracting from them
 auth = OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-
 api = API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
-query = 'bank'
-geo = '53.2757867,-7.563768,250km'
-cnt = 250
 
+query = 'bank'        # I want to find tweets with the text 'music' in them.  Doesn't have to be a hashtag
+geo = '53.2757867,-7.563768,250km'     #  I only want tweets within a 250km radius of the centre of Ireland
+cnt = 1000                              #  Only give me the first 250 tweets
+
+#This is the line that extracts the tweets
 tweets = [tweet for tweet in Cursor(api.search, q = query, geocode = geo).items(cnt)]
 
-#tweetList = []
-#for tweet in tweets:
-#    tweetList.append(tweet._json)
-    

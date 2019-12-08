@@ -3,12 +3,14 @@
 """
 Created on Sat Nov 23 23:25:05 2019
 
-@author: patrickbarry
+@author: ModiMacMod
 """
 
 #for part in tweetList[0]:
 #    print(part)
-
+import pandas as pd
+import numpy as np
+import json
 
 
 df = pd.DataFrame(data=[tweet.created_at for tweet in tweets], columns=['created_at'])
