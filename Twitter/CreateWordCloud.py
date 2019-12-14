@@ -24,7 +24,7 @@ wordcloud = WordCloud(
     height = 2000,
     max_words = 100,
     background_color = 'white',
-    stopwords = stopwords).generate(' '.join(tweetsDF['text']))
+    stopwords = stopwords).generate(' '.join(df['text']))
 
 #wordcloud.to_file("img/first_review.png")
 
