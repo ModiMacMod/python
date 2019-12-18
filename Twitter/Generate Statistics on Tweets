@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Dec 18 21:02:05 2019
+
+@author: ModiMacMod
+"""
+
+
+
+#table = df['created_at'].groupby([df['created_at'].dt.day, df['created_at'].dt.hour]).count()
+table = df['created_at'].groupby([df['created_at'].dt.to_period(freq='1h')]).count()
+#plt = table.plot.bar(title='Tweets Per Hour')
+#plt.set_xlabel("Hour Tweeted")
+#plt.set_ylabel("Count")
+#fmt = mdates.DateFormatter('%d')
+
+
+
+
+from matplotlib.dates import DateFormatter
+import matplotlib.pyplot as plt
+
+
+fig = plt.figure()
+ax1 = fig.add_subplot(2, 2, 1)
+table.plot()
+ax2 = fig.add_subplot(2, 2, 2)
+table.plot.bar(title='Tweets Per Hour')
+#ax2.xaxis.set_major_formatter(DateFormatter("%m-%d"))

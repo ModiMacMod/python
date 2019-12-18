@@ -25,7 +25,7 @@ wordcloud = WordCloud(
     max_words = 100,
     background_color = 'white',
     stopwords = stopwords).generate(' '.join(df['text']))
-
+                      
 #wordcloud.to_file("img/first_review.png")
 
 fig = plt.figure(
