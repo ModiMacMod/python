@@ -101,5 +101,10 @@ df['user_translator_type'] = np.array([tweet.user.translator_type for tweet in t
 #tweetList[833]['metadata'].iso_language_code
 
 
+#pd.set_option('display.max_rows', None)
+#pd.set_option('display.max_columns', None)
+#pd.set_option('display.width', None)
+#pd.set_option('display.max_colwidth', -1)
+
 
 

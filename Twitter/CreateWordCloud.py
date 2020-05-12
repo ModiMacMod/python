@@ -19,19 +19,26 @@ import matplotlib.pyplot as plt
 stopwords = set(STOPWORDS)
 stopwords.update(["https", "co", "flavors"])
 
+
+df2 = df[['text']]
+df2['text'].apply(lambda x: x.encode('utf-8').strip())
+df2['retweet'] = df2['text'].str[:2]
+df2 = df2[ df2['retweet']!='RT' ]
+
+
 wordcloud = WordCloud(
     width = 3000,
     height = 2000,
     max_words = 100,
     background_color = 'white',
-    stopwords = stopwords).generate(' '.join(df['text']))
+    stopwords = stopwords).generate(' '.join(df2['text']))
                       
 #wordcloud.to_file("img/first_review.png")
 
 fig = plt.figure(
-#    figsize = (40, 30),
-#    facecolor = 'k',
-#    edgecolor = 'k'
+    figsize = (30, 20),
+    facecolor = 'k',
+    edgecolor = 'k'
     )
 
 plt.imshow(wordcloud, interpolation = 'bilinear')

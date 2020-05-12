@@ -29,10 +29,12 @@ auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 api = API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
 
-query = 'bank'        # I want to find tweets with the text 'music' in them.  Doesn't have to be a hashtag
+query = 'Ulster Bank'        # I want to find tweets with the text 'music' in them.  Doesn't have to be a hashtag
 geo = '53.2757867,-7.563768,250km'     #  I only want tweets within a 250km radius of the centre of Ireland
 cnt = 1000                              #  Only give me the first 250 tweets
 
 #This is the line that extracts the tweets
-tweets = [tweet for tweet in Cursor(api.search, q = query, geocode = geo).items(cnt)]
+#tweets = [tweet for tweet in Cursor(api.search, q = query, geocode = geo).items(cnt)]
+
+tweets = [tweet for tweet in Cursor(api.search, q = query).items(cnt)]
 
