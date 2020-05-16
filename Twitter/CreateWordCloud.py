@@ -36,7 +36,7 @@ wordcloud = WordCloud(
 #wordcloud.to_file("img/first_review.png")
 
 fig = plt.figure(
-    figsize = (30, 20),
+    figsize = (25, 8),
     facecolor = 'k',
     edgecolor = 'k'
     )
