@@ -5,6 +5,13 @@ Created on Wed May 13 19:56:29 2020
 @author: padra
 """
 
+
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', None)
+pd.set_option('display.max_colwidth', -1)
+
+
 ###  Read a csv into a dataframe  ###
 df = pd.read_csv('data/xxx.csv', index_col='Respondent')
 schema_df = pd.read_csv('data/yyy.csv', index_col='Column')
