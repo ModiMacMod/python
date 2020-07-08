@@ -59,7 +59,7 @@ type(df.columns)
 # extract rows and columns with INTERGER location  #
 df.iloc[0]  #  Outputs first row as a series (column format)
 df.iloc[[0, 1]] #   Outputs a dataframe
-df.iloc[[0, 1], 0] #   Extract the email in the first column
+df.iloc[[0, 1], 0] #   Extract the age/email in the first column for rows 1 and 2
 
 # extract rows and columns with loaction  #
 df.loc[0]   # First row
@@ -134,7 +134,7 @@ df.columes = ['first_name', 'last_name', 'email']
 df,columns = [x.opper for x in df columns]      ### Change colume names to uppercase
 df.columns = df.columns.str.replace(' ', '_')     ### Replace spaces with underscores
 # rename some volumes
-df.rename(columns={'first_name': 'first', 'last_name': 'last'}, inplace = true)
+df.rename(columns={'first_name': 'first', 'last_name': 'last'}, inplace = True)
 
 # Update values
 df.loc[2]
@@ -194,16 +194,16 @@ df['Hobbyist'] = df['Hobbyist'].map{{'Yes': True, 'No', False}}
 # columes
 df['first'] + ' ' + df['last']
 df['full_name'] = df['first'] + ' ' + df['last'] # Cannot use dot notation, as attributes are assigned that way
-
+df
 df.drop(columns=['first', 'last'], inplace = True)
 df['full_name'].str.split(' ')          # return a list, can set this back to df
-df['full_name'].str.split(' ', expland) # expand to a df
-df[['first', 'last']] = df['full_name'].str.split(' ', expland)
+df['full_name'].str.split(' ', expand=True) # expand to a df
+df[['first', 'last']] = df['full_name'].str.split(' ', expand=True)
 
 
 # rows
-df.append({'first': Tony})  # This will give an error becase there is no index
-df.append({'first': Tony}, ignore_index=True)   # phyton will choose an index.  Other values set to Nan
+df.append({'first': 'Tony'})  # This will give an error becase there is no index
+df.append({'first': 'Tony'}, ignore_index=True)   # phyton will choose an index.  Other values set to Nan
 
 people = {
         "first": ["Tony", "Steve"],
@@ -215,7 +215,7 @@ df.append(df2, ignore_index=True, sort=False) # Sort will be set to False by def
 df = df.append(df2, ignore_index=True, sort=False)  # no inplace option
 
 df.drop(index = 4, inplace=True) # Drops the row corresponding to the index of 4
-filt = ('last'=='Doe')
+filt = (df['last']=='Doe')
 df.drop(index=df[filt].index)    # using condition.  Note the use of index. Otherwise use loc
 
 
@@ -236,7 +236,7 @@ df['last'].sort_values()    # Sorts a series (not a dataframe)
 df.sort_values(by=['Country', inplace=True])    # Sort data by countries
 df['Country'].head(50) # look at first 50 rows
 df[['Country', 'ConvertedComp']].head(50) 
-df.sort_values(by=['Country', inplace=True, ascending=[True, False]])    # Sort data by country with highest salaries first
+df.sort_values(by=['Country', 'ConvertedComp'], inplace=True, ascending=[True, False]])    # Sort data by country with highest salaries first
 # Nan is minus infinity
 
 # find largest and smallest values
@@ -268,7 +268,7 @@ filt = df['Country'] == "India"
 df.loc[filt]                        # Returns the same this as groupby object
 df.loc[filt].['SocialMedia'].value_counts()     # Returns the top sites for india
 
-country_grp['SocialMedia'].value_counts()               # Most popular my country
+country_grp['SocialMedia'].value_counts()               # Most popular by country
 country_grp['SocialMedia'].value_counts().head(50)      # Force to show 50 rows
 country_grp['SocialMedia'].value_counts().loc['India']  # Show India only
 country_grp['SocialMedia'].value_counts(normalize=True).loc['India']  # Shows percentages
@@ -279,8 +279,8 @@ country_grp['ConvertedComp'].agg(['median', 'mean'])    # Gives the median and m
 
 filt = df['Country'] == "India"
 df.loc[filt]                      
-df.loc[filt].['LanguageWorkedWith'].str.contains('Python')  # Return true or false
-df.loc[filt].['LanguageWorkedWith'].str.contains('Python').sum()  # counts number who know python
+df.loc[filt]['LanguageWorkedWith'].str.contains('Python')  # Return true or false
+df.loc[filt]['LanguageWorkedWith'].str.contains('Python').sum()  # counts number who know python
 
 country_grp['LanguageWorkedWith'].str.contains('Python').sum()   #  !!! Will not work  !!!  This is a series groupby object not a series
 country_grp['LanguageWorkedWith'].apply(lambda x: x.str.countains('Python').sum())  #  Need to use apply to create x which is a series
@@ -300,22 +300,118 @@ python_df.loc['Japan']   # Country names are the index for python_df
 ##  MISSING VALUES AND CASTING DTYPES  ##
 #########################################
 
+people = {
+        "first": ["Corey", "Jane", 'John', 'Chris', np.nan, None, 'NA'],
+        "last" : ["Schafer", "Doe", "Doe", "Schafer", np.nan, np.nan, 'Missing'],
+        "email": ["CoreyMSchafer@email.com", "JaneDoe@email.com", 'JohnDoe@email.com', None, np.nan, 'Anonymous@email.com', 'NA'],
+        "age"  : ['33', '55', '63', '36', None, None, 'Missing']}
+import pandas as pd
+df = pd.DataFrame(people)
+df
+
+df.dropna()     # drops np.nan or None
+df.dropna(axis='index', how = 'any')     # default values, drops indices (not 'columns'), where any missing (not 'all')
+
+df.dropna(axis='index', how = 'any', subset=['email'])  # drops any rows with missing emails 
+df.dropna(axis='index', how = 'all', subset=['last', 'email'])  # drops any rows with missing email and last name
+### inplace = True ###
 
 
+df.replace('NA', np.nan, inplace = True)    # replace all 'NA' values
+df.replace('Missing', np.nan, inplace = True)    # replace all 'NA' values
 
 
+df.isna()   # Get table of missing values
+df.fillna('MISSING')    # Replace missing values - df.fillna(0, inplace = True)
 
 
+df.dtypes   # object generally means string.  This is an attribute and not a function
+df['age'].mean()  # Gives error as age is a string
+type(np.nan)        # is a float, so can't convert to integers
+df['age'] = df['age'].astype(int)  #  gives errors as np.nan is a float
+
+df['age'] = df['age'].astype(float)  #  converts to float
+df.dtypes
+df['age'].mean()
+# df.astype() works if you want to change all columns to data type
 
 
+# Remove missing values during read from CSV
+na_vals = ['NA', 'Missing']
+df = pd.read_csv('data/xxx.csv', index_col='Respondent', na_values=na_vals)
 
 
+df['YearsCode'].head(10)
+df['YearsCode'].mean()  # Error because of NaN values
+df['YearsCode'] = df['YearsCode'].astype=(float) # Error because of string values
+
+df['YearsCode'].unique()    # Shows list of all possible values.  what values need to be replace!!
+df['YearsCode'].replace('Less than 1 year', 0, inplace = True)
+df['YearsCode'].replace('More than 50 years', 51, inplace = True)
+df['YearsCode'].unique()    # String gone!!
+df['YearsCode'] = df['YearsCode'].astype=(float)    # error gone!
+df['YearsCode'].mean()             # error gone!
+df['YearsCode'].median()
 
 
+#########################################
+##       DATETIMES TIME SERIES         ##
+#########################################
+
+import pandas as pd
+df = pd.read_csv('C:\Users\padra\Documents\Python\ETH_1h.csv')
+df.head()
+
+df.loc[0, 'Date']
+df.loc[0, 'Date'].day_name()    # Error as this is a string and not a datetime
+df['Date'] = pd.to_datetime(df['Date'])     # Pandas can not parse the text to datetime
+df['Date'] = pd.to_datetime(df['Date'], format='%Y-%m-%d %I-%p') # using datetime formatting codes
+df['Date']
 
 
+d_parser = lambda x: pd.datetime.strptime(x, '%Y-%m-%d %I-%p')
+df = pd.read_csv('C:\Users\padra\Documents\Python\ETH_1h.csv', parse_dates=['Date'], date_parser = d_parser)
+df.loc[0, 'Date'].day_name()    # now it is a datetime
 
+df['Date'].dt.day_name()    #   Note there is no need to use apply method
+df['DayOfWeek'] = df['Date'].dt.day_name()
 
+df['Date'].min()
+df['Date'].max()
+df['Date'].max() - df['Date'].min()     # Produces a time delta object
+
+filt = (df['Date'] > '2020')
+df.loc[filt]
+
+filt = (df['Date'] > '2019') & (df['Date'] < '2020')
+df.loc[filt]
+
+filt = (df['Date'] >= pd.to_datetime('2019-01-01')) & (df['Date'] < pd.to_datetime('2020-01-01'))
+df.loc[filt]
+
+df.set_index('Date', inplace = True)
+df['2019']  # Date for 2019
+df['2020-01':'2020-02']     # Inclusive, has both Jan and Feb
+
+df['2020-01':'2020-02']['Close'].mean()
+
+df['2020-01':'2020-02'].head(24)
+df['2020-01-01']['High']
+df['2020-01-01']['High'].max()
+
+df['High'].resample('D').max()    # Search for resample date offset, 2D, 3D, W
+highs = df['High'].resample('D').max()
+highs['2020-01-01']
+
+# plots
+%matplotlib inline      # Need to install matplotlib in the virtual environment
+highs.plot()
+
+df.resample('W').mean()     # Use the same aggregation method on everything
+df.resample('W').agg({'Close' : 'mean', 'High' : 'max', 'Low' : 'min', 'Volume' : 'sum'})
+
+temp = df.resample('W').agg({'Close' : 'mean', 'High' : 'max', 'Low' : 'min'})
+temp.plot()
 
 
 
